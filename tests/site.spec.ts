@@ -5,8 +5,8 @@ test('marketing experience and product previews work', async ({ page }, testInfo
   page.on('console', message => message.type() === 'error' && errors.push(message.text()))
   page.on('pageerror', error => errors.push(error.message))
   await page.goto('/cedarpass/')
-  await expect(page.getByRole('heading', { name: /best part of parking/i })).toBeVisible()
-  await expect(page.getByText('No app.').first()).toHaveCount(1)
+  await expect(page.getByRole('heading', { name: /turn proximity into a premium/i })).toBeVisible()
+  await expect(page.getByText('Scan the sign').first()).toHaveCount(1)
 
   await page.getByRole('button', { name: /try the guest experience/i }).click()
   await page.getByRole('button', { name: 'Park here' }).click()

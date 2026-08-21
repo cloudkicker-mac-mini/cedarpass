@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight, BarChart3, CalendarDays, Check, ChevronRight, CircleDollarSign,
   Clock3, CreditCard, Gauge, Headphones, LayoutDashboard, MapPin, Menu,
-  MessageSquareText, QrCode, ShieldCheck, Smartphone, Sparkles, Tag, X, Zap,
+  MessageSquareText, QrCode, ShieldCheck, Sparkles, Tag, X, Zap, Route, Building2,
 } from 'lucide-react'
 
 const capabilities = [
@@ -19,7 +19,7 @@ const capabilities = [
 const nav = [['How it works', 'how'], ['For operators', 'operators'], ['Turnkey launch', 'launch']]
 
 function Logo() {
-  return <a className="logo" href="#top" aria-label="CedarPass home"><span className="logo-mark"><i /><i /><i /></span><span>Cedar<span>Pass</span></span></a>
+  return <a className="logo" href="#top" aria-label="CedarPass home"><span className="logo-mark"><i /><i /></span><span>Cedar<span>Pass</span></span></a>
 }
 
 function App() {
@@ -75,39 +75,41 @@ function App() {
         <img src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`} alt="Guest scanning a premium parking sign at a Pacific Northwest destination" />
         <div className="hero-wash" />
         <div className="hero-content">
-          <p className="eyebrow light"><span /> Premium parking, without the parking app</p>
-          <h1>The best part of parking is <em>arriving.</em></h1>
-          <p className="hero-copy">Turn the closest spaces in your free lot into an effortless upgrade—fully installed, managed, and ready to earn.</p>
+          <p className="eyebrow light"><span /> Premium spaces. Frictionless arrival.</p>
+          <h1>Turn proximity into a <em>premium.</em></h1>
+          <p className="hero-copy">CedarPass transforms your most convenient parking spaces into a new guest upgrade—without gates, kiosks, downloads, or construction.</p>
           <div className="hero-actions">
-            <button className="button copper" onClick={openPilot}>Bring CedarPass to your property <ArrowRight /></button>
+            <button className="button copper" onClick={openPilot}>Unlock your best spaces <ArrowRight /></button>
             <button className="button ghost" onClick={() => scrollTo('guest-demo')}><QrCode /> Try the guest experience</button>
           </div>
           <div className="hero-proof">
-            <div><strong>No app.</strong><span>Scan and park</span></div>
-            <div><strong>No equipment.</strong><span>Signs do the work</span></div>
-            <div><strong>No heavy lift.</strong><span>We manage the platform</span></div>
+            <div><strong>01</strong><span>Scan the sign</span></div>
+            <div><strong>02</strong><span>Pay in seconds</span></div>
+            <div><strong>03</strong><span>Walk right in</span></div>
           </div>
         </div>
         <div className="space-badge"><span>SPACE</span><strong>A·012</strong><small>$8 · 4 hours</small></div>
+        <div className="distance-badge"><Route /><span><strong>3 minutes closer</strong>to the Cedar entrance</span></div>
       </section>
 
       <section className="arrival-strip">
-        <p>Built for the places people come together</p>
+        <p>One platform. Every kind of destination.</p>
         <div><span>Entertainment districts</span><i /> <span>Casinos & resorts</span><i /> <span>Event venues</span><i /> <span>Retail destinations</span><i /> <span>Tribal enterprises</span></div>
       </section>
 
       <section className="story section" id="how">
         <div className="story-lead">
           <p className="eyebrow"><span /> A better first impression</p>
-          <h2>Your best spaces are already valuable. <em>Make them work harder.</em></h2>
+          <h2>The shortest walk can be your highest-performing amenity.</h2>
         </div>
         <div className="story-copy">
-          <p>Guests already understand premium access. CedarPass gives them the choice to park closer—without gates, meters, apps, or a confusing checkout.</p>
-          <p>For your property, it creates measurable revenue from existing pavement while improving arrival for the guests who value convenience most.</p>
+          <p>Guests already pay for better seats, faster entry, and upgraded rooms. The space closest to the door belongs in that same category.</p>
+          <p>CedarPass creates a premium layer inside a free lot, generating measurable revenue while leaving the rest of your parking experience untouched.</p>
+          <div className="story-metrics"><span><strong>0</strong>apps to download</span><span><strong>0</strong>gates to install</span><span><strong>1</strong>new revenue stream</span></div>
         </div>
       </section>
 
-      <section className="steps section">
+      <section className="steps section" aria-label="Guest journey">
         {[
           ['01', 'Pull in', 'A premium space is clearly marked, priced, and ready.'],
           ['02', 'Scan', 'The space-specific QR code opens instantly—no download.'],
@@ -117,9 +119,10 @@ function App() {
       </section>
 
       <section className="guest-demo section" id="guest-demo">
+        <div className="demo-number">01 / GUEST</div>
         <div className="demo-copy">
-          <p className="eyebrow light"><span /> The guest experience</p>
-          <h2>From windshield to <em>checked in.</em></h2>
+          <p className="eyebrow light"><span /> A checkout, not a commitment</p>
+          <h2>Park now.<br /><em>Download nothing.</em></h2>
           <p>No account creation. No hunting through an app store. CedarPass keeps the moment simple, transparent, and on brand for your destination.</p>
           <ul>
             <li><Check /> Space-specific pricing and availability</li>
@@ -148,9 +151,10 @@ function App() {
       </section>
 
       <section className="operators section" id="operators">
+        <div className="section-index">02 / OPERATIONS</div>
         <div className="operators-heading">
-          <div><p className="eyebrow"><span /> Built for operators</p><h2>A parking program that <em>runs in plain sight.</em></h2></div>
-          <p>One calm view of utilization, revenue, sessions, and rules—from the first property to the fiftieth.</p>
+          <div><p className="eyebrow"><span /> Control without complexity</p><h2>Your pavement finally has a <em>P&amp;L.</em></h2></div>
+          <p>See what every premium space earns, when demand peaks, and where the next opportunity lives—from one destination to an entire portfolio.</p>
         </div>
         <div className="dashboard">
           <aside><Logo /><div className="dash-property"><span>PROPERTY</span><strong>Quil Ceda District</strong><small>3 premium zones</small></div>{['Overview', 'Live spaces', 'Pricing & events', 'Validations', 'Reports'].map((x, i) => <span className={i === 0 ? 'active' : ''} key={x}>{i === 0 ? <LayoutDashboard /> : i === 1 ? <MapPin /> : i === 2 ? <CalendarDays /> : i === 3 ? <ShieldCheck /> : <BarChart3 />}{x}</span>)}</aside>
@@ -166,12 +170,14 @@ function App() {
       </section>
 
       <section className="capabilities section">
-        <div className="cap-intro"><p className="eyebrow light"><span /> More than a payment page</p><h2>Every lever your property needs. <em>None of the clutter.</em></h2></div>
+        <div className="section-index">03 / PLATFORM</div>
+        <div className="cap-intro"><p className="eyebrow light"><span /> More than a payment page</p><h2>Built to earn.<br /><em>Designed to disappear.</em></h2></div>
         <div className="cap-list">{capabilities.map(({icon: Icon, title, copy}, i) => <article key={title}><span>{String(i + 1).padStart(2, '0')}</span><Icon /><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
       </section>
 
       <section className="launch section" id="launch">
-        <div className="launch-title"><p className="eyebrow"><span /> Turnkey by design</p><h2>You choose the spaces.<br /><em>We handle the rest.</em></h2></div>
+        <div className="section-index">04 / LAUNCH</div>
+        <div className="launch-title"><p className="eyebrow"><span /> White-glove rollout</p><h2>Your lot. Our lift.<br /><em>Live in weeks.</em></h2></div>
         <div className="launch-roadmap">
           {[
             [MapPin, 'Walk & map', 'We identify the right premium inventory, guest paths, zones, and sign locations with your team.'],
@@ -184,12 +190,12 @@ function App() {
 
       <section className="responsibility section">
         <div className="responsibility-mark"><ShieldCheck /></div>
-        <div><p className="eyebrow"><span /> Clear roles. Better experiences.</p><h2>Technology supports the rules. <em>Your property sets them.</em></h2></div>
+        <div><p className="eyebrow"><span /> Your property. Your policy.</p><h2>We make compliance visible—not confrontational.</h2></div>
         <div><p>CedarPass confirms active sessions, applies grace periods, records evidence, and gives authorized teams the information needed to manage the lot.</p><p>Your property chooses its parking policies, enforcement approach, and outside partners. CedarPass keeps those choices configurable—without making enforcement the guest experience.</p></div>
       </section>
 
       <section className="cta-section section">
-        <div className="cta-rings" /><p className="eyebrow light"><span /> Your best spaces are waiting</p><h2>Make arrival feel <em>effortless.</em></h2><p>Start with one entrance, one event zone, or one destination. We’ll help you design a pilot that proves the experience and the opportunity.</p><button className="button copper" onClick={openPilot}>Design my CedarPass pilot <ArrowRight /></button><small><Clock3 /> A focused 30-minute property conversation</small>
+        <div className="cta-rings" /><Building2 /><p className="eyebrow light"><span /> The opportunity is already striped</p><h2>Put your best spaces <em>to work.</em></h2><p>Start with one entrance, one event zone, or one destination. We’ll help you design a pilot that proves the experience and the opportunity.</p><button className="button copper" onClick={openPilot}>Design my CedarPass pilot <ArrowRight /></button><small><Clock3 /> A focused 30-minute property conversation</small>
       </section>
     </main>
 
