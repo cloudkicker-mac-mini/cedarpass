@@ -27,6 +27,7 @@ function Logo() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [journey, setJourney] = useState(0)
+  const [bookingStep, setBookingStep] = useState(0)
   const [spaces, setSpaces] = useState(40)
   const [price, setPrice] = useState(8)
   const [days, setDays] = useState(12)
@@ -83,8 +84,15 @@ function App() {
           <div className="journey-detail"><QrCode /><span>{guestSteps[journey].detail}</span></div>
           <div className="journey-tabs">{guestSteps.map((step, i) => <button className={journey === i ? 'active' : ''} onClick={() => setJourney(i)} key={step.n}><span>{step.n}</span>{step.label}</button>)}</div>
         </div>
-        <div className="journey-ticket">
-          <div className="ticket-top"><Logo /><span>SPACE</span></div><strong>A—012</strong><p>CEDAR ENTRANCE</p><div className="ticket-price"><strong>$8</strong><span>UP TO 4 HOURS<br />UNTIL 10:30 PM</span></div><button onClick={() => setJourney((journey + 1) % 3)}>Park here <ArrowRight /></button><small>NO APP OR ACCOUNT REQUIRED</small>
+        <div className="phone-demo">
+          <div className="phone-label"><span>LIVE BOOKING DEMO</span><i /> TAP THROUGH IT</div>
+          <div className="phone-shell" aria-label="Interactive CedarPass booking demo">
+            <div className="phone-status"><span>9:41</span><i /></div>
+            {bookingStep === 0 && <div className="phone-screen phone-welcome"><Logo /><div className="phone-space"><span>SPACE</span><strong>A—012</strong><small>CEDAR ENTRANCE</small></div><h3>You found a closer spot.</h3><div className="phone-price"><strong>$8</strong><span>UP TO 4 HOURS<br />UNTIL 10:30 PM</span></div><button onClick={() => setBookingStep(1)}>Park here <ArrowRight /></button><small>NO APP OR ACCOUNT REQUIRED</small></div>}
+            {bookingStep === 1 && <div className="phone-screen phone-form"><button className="phone-back" onClick={() => setBookingStep(0)}>← Back</button><span className="phone-kicker">SPACE A—012</span><h3>What are you driving?</h3><label>LICENSE PLATE<input aria-label="License plate" defaultValue="ABC 1234" /></label><label>STATE<select aria-label="State" defaultValue="Washington"><option>Washington</option><option>Oregon</option><option>California</option></select></label><div className="phone-summary"><span>Premium parking · 4 hours</span><strong>$8.00</strong></div><button onClick={() => setBookingStep(2)}>Continue to pay <ArrowRight /></button></div>}
+            {bookingStep === 2 && <div className="phone-screen phone-pay"><button className="phone-back" onClick={() => setBookingStep(1)}>← Back</button><span className="phone-kicker">SECURE CHECKOUT</span><h3>Pay and go enjoy.</h3><button className="apple-pay" onClick={() => setBookingStep(3)}>Pay with Apple Pay</button><div className="pay-or">OR USE A CARD</div><div className="card-line"><CreditCard /><span>•••• •••• •••• 4242</span></div><div className="phone-summary"><span>Total</span><strong>$8.00</strong></div><button onClick={() => setBookingStep(3)}>Pay $8.00 <ShieldCheck /></button></div>}
+            {bookingStep === 3 && <div className="phone-screen phone-success"><div className="success-check"><Check /></div><span className="phone-kicker">SESSION ACTIVE</span><h3>You're parked.</h3><p>Go enjoy your visit. We'll text you before your time runs out.</p><div className="active-ticket"><span>SPACE<strong>A—012</strong></span><span>PLATE<strong>ABC 1234</strong></span><span>GOOD UNTIL<strong>10:30 PM</strong></span></div><button onClick={() => setBookingStep(0)}>Restart demo</button></div>}
+          </div>
         </div>
       </section>
 

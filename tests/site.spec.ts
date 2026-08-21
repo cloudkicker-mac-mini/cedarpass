@@ -21,6 +21,12 @@ test('CedarPass original marketing experience works', async ({ page }, testInfo)
   await page.getByRole('button', { name: /02\s*scan/i }).click()
   await expect(page.getByRole('heading', { name: /point. tap. done/i })).toBeVisible()
 
+  await page.getByRole('button', { name: 'Park here' }).click()
+  await expect(page.getByRole('heading', { name: /what are you driving/i })).toBeVisible()
+  await page.getByRole('button', { name: /continue to pay/i }).click()
+  await page.getByRole('button', { name: /pay \$8.00/i }).click()
+  await expect(page.getByRole('heading', { name: /you're parked/i })).toBeVisible()
+
   await page.getByRole('button', { name: /build my pilot/i }).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await page.keyboard.press('Escape')
