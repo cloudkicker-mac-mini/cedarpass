@@ -1,33 +1,26 @@
 import { expect, test } from '@playwright/test'
 
-test('CedarPass original marketing experience works', async ({ page }, testInfo) => {
+test('CedarPass cinematic executive experience works', async ({ page }, testInfo) => {
   const errors: string[] = []
   page.on('console', message => message.type() === 'error' && errors.push(message.text()))
   page.on('pageerror', error => errors.push(error.message))
   await page.goto('/cedarpass/')
 
-  await expect(page.getByRole('heading', { name: /the upgrade before the entrance/i })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /make arrival feel first class/i })).toBeVisible()
+  await page.getByRole('button', { name: /experience the journey/i }).click()
+  await expect(page.getByRole('heading', { name: /the arrival/i })).toBeVisible()
+  await page.getByRole('button', { name: /02/i }).click()
+  await expect(page.getByRole('heading', { name: /the decision/i })).toBeVisible()
 
-  await page.getByRole('button', { name: /see the opportunity/i }).click()
-  await expect(page.getByRole('heading', { name: /revenue hiding between the stripes/i })).toBeVisible()
+  await page.getByRole('button', { name: /start parking/i }).click()
+  await expect(page.getByRole('heading', { name: /your plate is your pass/i })).toBeVisible()
+  await page.getByRole('button', { name: /^continue$/i }).click()
+  await page.getByRole('button', { name: /^pay$/i }).click()
+  await expect(page.getByRole('heading', { name: /you're all set/i })).toBeVisible()
 
-  const slider = page.getByRole('slider', { name: 'Premium spaces' })
-  await slider.fill('60')
-  await expect(page.getByText('$5,760')).toBeVisible()
-
-  const guestFlow = page.getByRole('button', { name: /guest flow/i })
-  if (!(await guestFlow.isVisible())) await page.getByRole('button', { name: /toggle menu/i }).click()
-  await guestFlow.click()
-  await page.getByRole('button', { name: /02\s*scan/i }).click()
-  await expect(page.getByRole('heading', { name: /point. tap. done/i })).toBeVisible()
-
-  await page.getByRole('button', { name: 'Park here' }).click()
-  await expect(page.getByRole('heading', { name: /what are you driving/i })).toBeVisible()
-  await page.getByRole('button', { name: /continue to pay/i }).click()
-  await page.getByRole('button', { name: /pay \$8.00/i }).click()
-  await expect(page.getByRole('heading', { name: /you're parked/i })).toBeVisible()
-
-  await page.getByRole('button', { name: /build my pilot/i }).click()
+  await page.getByRole('button', { name: /increase premium spaces/i }).click()
+  await expect(page.getByText('$7,560')).toBeVisible()
+  await page.getByRole('button', { name: /explore a cedarpass pilot/i }).click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await page.keyboard.press('Escape')
   await expect(page.getByRole('dialog')).toBeHidden()
