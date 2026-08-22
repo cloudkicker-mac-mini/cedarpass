@@ -1,8 +1,8 @@
 {
-  "task": "Add CedarPass executive revenue calculator",
-  "stage": "complete",
-  "nextStep": "Await Anthony's review of the live calculator",
+  "task": "Replace CedarPass 300 Feet hero with a clearer premium-inventory campaign",
+  "stage": "verified locally",
+  "nextStep": "Commit, push, and verify GitHub Pages deployment",
   "blockers": [],
   "artifacts": ["src/App.tsx", "src/styles.css", "tests/site.spec.ts"],
-  "timestamp": "2026-08-22T00:56:00Z"
+  "timestamp": "2026-08-22T01:36:00Z"
 }

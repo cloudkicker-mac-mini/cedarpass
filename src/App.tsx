@@ -103,9 +103,10 @@ function App() {
 
     <section className="opening" id="opening">
       <img src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`} alt="A guest arriving at a premium CedarPass parking space" />
-      <div className="opening-title"><span>THE VALUE OF</span><strong>300</strong><em>FEET</em></div>
-      <div className="opening-caption"><p>A closer space changes the arrival.</p><span>Premium parking for places that already offer free parking.</span></div>
-      <a href="#chapter-0" className="start-film"><span>START THE ARRIVAL</span><ArrowDown /></a>
+      <div className="opening-title"><strong>THE BEST</strong><em>SPACES</em><b>ARE ALREADY BUILT.</b></div>
+      <div className="opening-caption"><p>CedarPass turns the spaces closest to your entrance into a fully managed premium experience.</p><span>NEW REVENUE / BETTER ARRIVAL / ZERO APP DOWNLOADS</span></div>
+      <div className="opening-space"><span>PREMIUM INVENTORY</span><b>A12</b><small>READY TO ACTIVATE</small></div>
+      <a href="#chapter-0" className="start-film"><span>SEE HOW IT WORKS</span><ArrowDown /></a>
     </section>
 
     <section className="journey">

@@ -6,8 +6,9 @@ test('CedarPass arrival journey and booking demo work', async ({ page }, testInf
   page.on('pageerror', error => errors.push(error.message))
   await page.goto('/cedarpass/')
 
-  await expect(page.getByText('THE VALUE OF')).toBeVisible()
-  await expect(page.locator('#opening').getByText('300', { exact: true })).toBeVisible()
+  await expect(page.locator('#opening').getByText('THE BEST', { exact: true })).toBeVisible()
+  await expect(page.locator('#opening').getByText('SPACES', { exact: true })).toBeVisible()
+  await expect(page.locator('#opening').getByText('ARE ALREADY BUILT.', { exact: true })).toBeVisible()
   await page.locator('#chapter-2').scrollIntoViewIfNeeded()
   await expect(page.getByRole('button', { name: /claim this space/i })).toBeVisible()
   await page.getByRole('button', { name: /claim this space/i }).click()
