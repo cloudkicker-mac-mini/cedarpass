@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test'
 
-test('CedarParking arrival journey and booking demo work', async ({ page }, testInfo) => {
+test('CedarSpaces arrival journey and booking demo work', async ({ page }, testInfo) => {
   const errors: string[] = []
   page.on('console', message => message.type() === 'error' && errors.push(message.text()))
   page.on('pageerror', error => errors.push(error.message))
   await page.goto('/cedarpass/')
 
-  await expect(page).toHaveTitle(/CedarParking/)
+  await expect(page).toHaveTitle(/CedarSpaces/)
   await expect(page.locator('#opening').getByText(/the best spaces/i)).toBeVisible()
   await expect(page.locator('#opening').getByText(/are already built/i)).toBeVisible()
   await expect(page.getByRole('link', { name: /how it works/i }).first()).toHaveAttribute('href', '#chapter-0')

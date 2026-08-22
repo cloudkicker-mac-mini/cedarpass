@@ -1860,7 +1860,7 @@ p {
   }
 }
 
-/* The CedarParking protocol: one conversion path from physical space to paid session. */
+/* The CedarSpaces protocol: one conversion path from physical space to paid session. */
 .spine-cta {
   width: 76px;
   height: 76px;

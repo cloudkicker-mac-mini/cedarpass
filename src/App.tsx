@@ -18,12 +18,12 @@ const chapters = [
 
 function Mark() {
   return (
-    <a className="mark" href="#opening" aria-label="CedarParking home">
-      <i>CP</i>
+    <a className="mark" href="#opening" aria-label="CedarSpaces home">
+      <i>CS</i>
       <span>
         CEDAR
         <br />
-        PARKING
+        SPACES
       </span>
     </a>
   );
@@ -40,7 +40,7 @@ function Phone() {
         </div>
         {step === 0 && (
           <div className="screen start">
-            <div className="phone-brand">CEDAR / PARKING</div>
+            <div className="phone-brand">CEDAR / SPACES</div>
             <div className="space-number">A12</div>
             <div className="space-meta">
               <span>CEDAR ENTRANCE</span>
@@ -255,7 +255,7 @@ function App() {
       <section className="opening" id="opening">
         <img
           src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`}
-          alt="A guest arriving at a premium CedarParking space"
+          alt="A guest arriving at a premium CedarSpaces space"
         />
         <div className="opening-title">
           <strong>
@@ -263,11 +263,11 @@ function App() {
             <br />
             are already built.
           </strong>
-          <span>CEDARPARKING / PREMIUM ARRIVAL</span>
+          <span>CEDARSPACES / PREMIUM ARRIVAL</span>
         </div>
         <div className="opening-caption">
           <p>
-            CedarParking turns the spaces closest to your entrance into a fully
+            CedarSpaces turns the spaces closest to your entrance into a fully
             managed premium experience.
           </p>
           <a href="#chapter-0" className="opening-cta">
@@ -297,12 +297,12 @@ function App() {
               the spaces.
             </h2>
             <p>
-              We turn each one into premium inventory with a CedarParking
+              We turn each one into premium inventory with a CedarSpaces
               sign—temporary for an event, or permanently installed for everyday
               use.
             </p>
           </div>
-          <div className="sign-stage" aria-label="CedarParking parking sign">
+          <div className="sign-stage" aria-label="CedarSpaces parking sign">
             <div className="sign-shadow" />
             <div className="parking-sign">
               <span>THIS SPACE IS AVAILABLE</span>
@@ -348,7 +348,7 @@ function App() {
             <span>GENERAL PARKING</span>
             <strong>1,240'</strong>
             <i />
-            <span>CEDARPARKING</span>
+            <span>CEDARSPACES</span>
             <strong>300'</strong>
           </div>
           <div className="choice-copy">
@@ -484,7 +484,7 @@ function App() {
           <p>
             We walk the property, select the inventory, install every sign, run
             the payment experience, and report performance. Your team chooses
-            policy. CedarParking runs the platform.
+            policy. CedarSpaces runs the platform.
           </p>
           <ol>
             <li>
@@ -510,7 +510,7 @@ function App() {
             <b>Enforcement policy</b>
           </div>
           <p>
-            CedarParking identifies valid sessions. The property retains control of
+            CedarSpaces identifies valid sessions. The property retains control of
             enforcement and towing decisions.
           </p>
         </div>
