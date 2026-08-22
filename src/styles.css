@@ -1835,8 +1835,13 @@ p {
     line-height: 0.84;
   }
   .opening-title strong {
-    font-size: clamp(3.75rem, 18vw, 5.3rem);
-    letter-spacing: -0.045em;
+    width: 100%;
+    max-width: 12ch;
+    font-size: clamp(3.25rem, 15.25vw, 4.8rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    white-space: normal;
+    overflow-wrap: normal;
   }
   .opening-title > span {
     margin: 0 0 14px 2px;

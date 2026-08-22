@@ -36,3 +36,27 @@ test('CedarSpaces arrival journey and booking demo work', async ({ page }, testI
   await page.screenshot({ path: `screenshots/cedarpass-${testInfo.project.name}.png`, fullPage: true })
   expect(errors).toEqual([])
 })
+
+for (const viewport of [
+  { name: 'iphone-se', width: 320, height: 568 },
+  { name: 'iphone-13', width: 390, height: 844 },
+  { name: 'iphone-pro-max', width: 430, height: 932 },
+  { name: 'tablet', width: 768, height: 1024 },
+  { name: 'desktop', width: 1440, height: 900 },
+]) {
+  test(`hero content stays inside the viewport at ${viewport.name}`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height })
+    await page.goto('/cedarpass/')
+
+    const headline = page.locator('.opening-title strong')
+    await expect(headline).toBeVisible()
+
+    const bounds = await headline.boundingBox()
+    expect(bounds).not.toBeNull()
+    expect(bounds!.x).toBeGreaterThanOrEqual(0)
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(viewport.width)
+
+    const pageWidth = await page.evaluate(() => document.documentElement.scrollWidth)
+    expect(pageWidth).toBeLessThanOrEqual(viewport.width)
+  })
+}
