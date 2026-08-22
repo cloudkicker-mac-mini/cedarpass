@@ -1,8 +1,8 @@
 {
   "task": "Center CedarPass conversion path on How It Works",
-  "stage": "verified",
-  "nextStep": "Commit and deploy the verified CTA and product journey",
+  "stage": "complete",
+  "nextStep": "Await Anthony's review of the live How It Works journey",
   "blockers": [],
   "artifacts": ["src/App.tsx", "src/styles.css", "tests/site.spec.ts"],
-  "timestamp": "2026-08-22T02:31:00Z"
+  "timestamp": "2026-08-22T02:36:00Z"
 }
