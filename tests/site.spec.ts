@@ -7,7 +7,7 @@ test('CedarPass arrival journey and booking demo work', async ({ page }, testInf
   await page.goto('/cedarpass/')
 
   await expect(page.getByText('THE VALUE OF')).toBeVisible()
-  await expect(page.getByText('300', { exact: true })).toBeVisible()
+  await expect(page.locator('#opening').getByText('300', { exact: true })).toBeVisible()
   await page.locator('#chapter-2').scrollIntoViewIfNeeded()
   await expect(page.getByRole('button', { name: /claim this space/i })).toBeVisible()
   await page.getByRole('button', { name: /claim this space/i }).click()

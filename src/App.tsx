@@ -75,8 +75,16 @@ function App() {
     <section className="journey">
       <article id="chapter-0" data-chapter="0" ref={n => { nodes.current[0] = n }} className="chapter approach">
         <div className="chapter-index"><b>00:08</b><span>APPROACH</span></div>
-        <div className="windshield"><img src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`} alt="" /></div>
-        <p className="subtitles">The lot is free.<br /><strong>The best arrival is not.</strong></p>
+        <div className="approach-meter" aria-label="300 feet to the entrance">
+          <div className="distance-readout"><strong>300</strong><span>FT</span></div>
+          <div className="lane-line"><i /><i /><i /><i /></div>
+          <div className="destination"><span>DESTINATION</span><b>CEDAR ENTRANCE</b></div>
+        </div>
+        <div className="approach-statement">
+          <span>THE LAST 300 FEET</span>
+          <p>Every property has a shortest walk.<br /><strong>CedarPass turns it into premium inventory.</strong></p>
+        </div>
+        <div className="drive-data"><span>SPACE <b>A12</b></span><span>STATUS <b>AVAILABLE</b></span><span>ARRIVAL <b>00:49</b></span></div>
       </article>
 
       <article id="chapter-1" data-chapter="1" ref={n => { nodes.current[1] = n }} className="chapter choose">
