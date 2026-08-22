@@ -1,138 +1,129 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDown, ArrowRight, Check, Menu, Pause, Play, QrCode, Volume2, X } from 'lucide-react'
+import { ArrowDown, ArrowRight, Check, ChevronLeft, X } from 'lucide-react'
 
-const scenes = [
-  { time: '00:00', title: 'The lot is free.', line: 'The best arrival does not have to be.', note: 'A new premium layer for the spaces guests already want.' },
-  { time: '00:18', title: 'Three minutes closer.', line: 'Worth it before they leave the car.', note: 'Premium spaces create an immediate, understandable choice.' },
-  { time: '00:31', title: 'Scan. Plate. Pay.', line: 'The entire transaction takes less than a minute.', note: 'No app. No account. No gate. The plate becomes the permit.' },
-  { time: '00:47', title: 'Arrival, upgraded.', line: 'The guest walks in. CedarPass keeps working.', note: 'Receipts, reminders, extensions, and live session status happen automatically.' },
-  { time: '01:02', title: 'The space performs.', line: 'Hospitality for the guest. Yield for the property.', note: 'A managed revenue stream built from pavement you already own.' },
+const chapters = [
+  ['00', 'Approach'], ['01', 'Choose'], ['02', 'Activate'], ['03', 'Arrive'], ['04', 'Perform'],
 ]
 
-function Brand() {
-  return <a className="brand" href="#top" aria-label="CedarPass home"><i /><span>CEDAR<b>PASS</b></span></a>
+function Mark() {
+  return <a className="mark" href="#opening" aria-label="CedarPass home"><i>CP</i><span>CEDAR<br />PASS</span></a>
+}
+
+function Phone() {
+  const [step, setStep] = useState(0)
+  return <div className="device-wrap">
+    <div className="device">
+      <div className="island" /><div className="status">9:41 <span>● ● ▰</span></div>
+      {step === 0 && <div className="screen start">
+        <div className="phone-brand">CEDAR / PASS</div>
+        <div className="space-number">A12</div>
+        <div className="space-meta"><span>CEDAR ENTRANCE</span><span>AVAILABLE</span></div>
+        <div className="price"><strong>$10</strong><span>UNTIL<br />10:30 PM</span></div>
+        <button onClick={() => setStep(1)}>Claim this space <ArrowRight /></button>
+      </div>}
+      {step === 1 && <div className="screen detail">
+        <button className="back" onClick={() => setStep(0)}><ChevronLeft /> A12</button>
+        <h3>Your plate<br />is your pass.</h3>
+        <label>LICENSE PLATE<input aria-label="License plate" defaultValue="ABC 1234" /></label>
+        <label>MOBILE NUMBER<input aria-label="Mobile number" defaultValue="(425) 555-0148" /></label>
+        <button onClick={() => setStep(2)}>Continue <ArrowRight /></button>
+      </div>}
+      {step === 2 && <div className="screen detail payment">
+        <button className="back" onClick={() => setStep(1)}><ChevronLeft /> VEHICLE</button>
+        <h3>Confirm<br />the upgrade.</h3>
+        <div className="receipt"><span>Premium space A12</span><b>$10.00</b><span>Service</span><b>Included</b></div>
+        <button onClick={() => setStep(3)}>Pay $10.00</button>
+      </div>}
+      {step === 3 && <div className="screen complete">
+        <div className="complete-ring"><Check /></div>
+        <span>SESSION ACTIVE</span><h3>Walk in.</h3><p>Space A12 is active until 10:30 PM. We’ll text before time runs out.</p>
+        <div className="plate"><span>ABC 1234</span><b>A12</b></div>
+        <button onClick={() => setStep(0)}>Replay</button>
+      </div>}
+    </div>
+    <span className="demo-label">LIVE DEMO — TAP TO DRIVE</span>
+  </div>
 }
 
 function App() {
   const [active, setActive] = useState(0)
-  const [playing, setPlaying] = useState(true)
-  const [menu, setMenu] = useState(false)
-  const [phone, setPhone] = useState(0)
   const [pilot, setPilot] = useState(false)
-  const sceneRefs = useRef<(HTMLElement | null)[]>([])
-  const modalRef = useRef<HTMLDivElement>(null)
+  const nodes = useRef<(HTMLElement | null)[]>([])
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) setActive(Number((entry.target as HTMLElement).dataset.scene))
-    }), { threshold: .58 })
-    sceneRefs.current.forEach(scene => scene && observer.observe(scene))
+      if (entry.isIntersecting) setActive(Number((entry.target as HTMLElement).dataset.chapter))
+    }), { threshold: .55 })
+    nodes.current.forEach(node => node && observer.observe(node))
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    if (!pilot) return
-    modalRef.current?.querySelector<HTMLElement>('button')?.focus()
-    const close = (event: KeyboardEvent) => event.key === 'Escape' && setPilot(false)
-    addEventListener('keydown', close)
-    return () => removeEventListener('keydown', close)
-  }, [pilot])
+  return <main>
+    <aside className="spine">
+      <Mark />
+      <div className="chapter-rail">{chapters.map(([n, label], i) => <a key={n} href={`#chapter-${i}`} className={active === i ? 'active' : ''}><i /><span>{n}</span><b>{label}</b></a>)}</div>
+      <button onClick={() => setPilot(true)}>PILOT <ArrowRight /></button>
+    </aside>
 
-  const jump = (index: number) => sceneRefs.current[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    <section className="opening" id="opening">
+      <img src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`} alt="A guest arriving at a premium CedarPass parking space" />
+      <div className="opening-title"><span>THE VALUE OF</span><strong>300</strong><em>FEET</em></div>
+      <div className="opening-caption"><p>A closer space changes the arrival.</p><span>Premium parking for places that already offer free parking.</span></div>
+      <a href="#chapter-0" className="start-film"><span>START THE ARRIVAL</span><ArrowDown /></a>
+    </section>
 
-  return <div id="top">
-    <header className="film-header">
-      <Brand />
-      <div className="film-title">A CEDARPASS FILM <span>01:18</span></div>
-      <button className="header-pilot" onClick={() => setPilot(true)}>Plan a pilot <ArrowRight /></button>
-      <button className="menu-toggle" aria-label="Toggle menu" onClick={() => setMenu(!menu)}>{menu ? <X /> : <Menu />}</button>
-      {menu && <nav><button onClick={() => jump(0)}>Restart film</button><button onClick={() => jump(4)}>The business case</button><button onClick={() => setPilot(true)}>Plan a pilot</button></nav>}
-    </header>
+    <section className="journey">
+      <article id="chapter-0" data-chapter="0" ref={n => { nodes.current[0] = n }} className="chapter approach">
+        <div className="chapter-index"><b>00:08</b><span>APPROACH</span></div>
+        <div className="windshield"><img src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`} alt="" /></div>
+        <p className="subtitles">The lot is free.<br /><strong>The best arrival is not.</strong></p>
+      </article>
 
-    <main>
-      <section className="prologue">
-        <div className="prologue-photo"><img src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`} alt="Guest arriving at a CedarPass premium parking space" /></div>
-        <div className="prologue-grade" />
-        <div className="prologue-copy">
-          <span>PREMIUM PARKING / FULLY MANAGED</span>
-          <h1>THE<br />ARRIVAL</h1>
-          <p>A one-minute story about the value hiding in the final three hundred feet.</p>
-          <button onClick={() => jump(0)}>Begin <ArrowDown /></button>
-        </div>
-        <div className="prologue-credit"><span>CEDARPASS</span><span>QUIL CEDA / CONCEPT 01</span></div>
-      </section>
+      <article id="chapter-1" data-chapter="1" ref={n => { nodes.current[1] = n }} className="chapter choose">
+        <div className="chapter-index"><b>00:21</b><span>CHOOSE</span></div>
+        <div className="distance"><span>GENERAL PARKING</span><strong>1,240'</strong><i /><span>CEDARPASS</span><strong>300'</strong></div>
+        <div className="choice-copy"><p>Guests do not need an explanation.</p><h2>Closer<br />is the product.</h2></div>
+        <div className="space-tag"><span>SPACE</span><b>A12</b><small>SCAN TO PARK</small></div>
+      </article>
 
-      <section className={`film-reel scene-${active} ${playing ? 'playing' : 'paused'}`}>
-        <div className="film-viewport">
-          <div className="film-image"><img src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`} alt="" /></div>
-          <div className="film-vignette" />
-          <div className="grain" />
+      <article id="chapter-2" data-chapter="2" ref={n => { nodes.current[2] = n }} className="chapter activate">
+        <div className="chapter-index"><b>00:34</b><span>ACTIVATE</span></div>
+        <div className="activation-copy"><p>NO DOWNLOAD<br />NO ACCOUNT<br />NO GATE</p><h2>Fifty<br />seconds.</h2><span>Scan the sign. Enter the plate. Pay. Walk in.</span></div>
+        <Phone />
+        <div className="scan-beam"><i /><i /><i /></div>
+      </article>
 
-          <div className="frame-copy" key={active}>
-            <span>{scenes[active].time} / SCENE {String(active + 1).padStart(2, '0')}</span>
-            <h2>{scenes[active].title}</h2>
-            <p>{scenes[active].line}</p>
-            <small>{scenes[active].note}</small>
-          </div>
+      <article id="chapter-3" data-chapter="3" ref={n => { nodes.current[3] = n }} className="chapter arrive">
+        <div className="chapter-index"><b>00:49</b><span>ARRIVE</span></div>
+        <div className="arrival-word">ARRIVE</div>
+        <blockquote>“Premium should feel like a better welcome—not another parking system.”</blockquote>
+        <div className="service-strip"><span>SMS REMINDERS</span><span>ONE-TAP EXTENSIONS</span><span>DIGITAL RECEIPTS</span><span>LIVE SESSION STATUS</span></div>
+      </article>
 
-          <div className={`scan-moment ${active === 2 ? 'visible' : ''}`}>
-            <div className="sign"><i>CP</i><QrCode /><span>SPACE A12</span></div>
-            <div className="scan-ring"><i /><i /><i /></div>
-          </div>
+      <article id="chapter-4" data-chapter="4" ref={n => { nodes.current[4] = n }} className="chapter perform">
+        <div className="chapter-index"><b>01:03</b><span>PERFORM</span></div>
+        <div className="performance-line"><span>PAVEMENT</span><i /><span>HOSPITALITY</span><i /><span>REVENUE</span></div>
+        <div className="number"><strong>$6,480</strong><span>ILLUSTRATIVE<br />MONTHLY GROSS</span></div>
+        <p>36 premium spaces × $10 × 18 monthly sessions</p>
+        <small>Illustrative only. Before utilization, costs, taxes, and revenue sharing.</small>
+      </article>
+    </section>
 
-          <div className={`phone-moment ${active === 2 || active === 3 ? 'visible' : ''}`}>
-            <div className="cinema-phone">
-              <div className="phone-bar"><span>9:41</span><i /></div>
-              {phone === 0 && <div className="phone-frame"><Brand /><span>CEDAR ENTRANCE · A12</span><h3>You found<br />the closer spot.</h3><div className="phone-fare"><b>$10</b><small>UNTIL 10:30 PM</small></div><button onClick={() => setPhone(1)}>Park here <ArrowRight /></button></div>}
-              {phone === 1 && <div className="phone-frame"><button className="phone-back" onClick={() => setPhone(0)}>Back</button><span>YOUR VEHICLE</span><h3>Your plate<br />is your pass.</h3><label>LICENSE PLATE<input aria-label="License plate" defaultValue="ABC 1234" /></label><button onClick={() => setPhone(2)}>Continue <ArrowRight /></button></div>}
-              {phone === 2 && <div className="phone-frame"><button className="phone-back" onClick={() => setPhone(1)}>Back</button><span>SECURE PAYMENT</span><h3>One tap<br />and go.</h3><div className="pay-line"><span>SPACE A12</span><b>$10.00</b></div><button onClick={() => setPhone(3)}>Pay $10.00</button></div>}
-              {phone === 3 && <div className="phone-frame success"><div className="success-icon"><Check /></div><span>SESSION ACTIVE</span><h3>You're parked.</h3><p>Enjoy your visit. We’ll text you before your session ends.</p><div className="permit"><span>ABC 1234</span><b>10:30 PM</b></div><button onClick={() => setPhone(0)}>Replay demo</button></div>}
-            </div>
-            <span className="tap-note">INTERACTIVE / TAP THROUGH</span>
-          </div>
+    <section className="boardroom">
+      <div className="boardroom-lead"><span>THE ARRIVAL ENDS HERE.</span><h2>The operating burden<br />doesn't begin.</h2></div>
+      <div className="managed">
+        <p>We walk the property, select the inventory, install every sign, run the payment experience, and report performance. Your team chooses policy. CedarPass runs the platform.</p>
+        <ol><li><b>01</b>Property & demand study</li><li><b>02</b>Space and pricing plan</li><li><b>03</b>Sign fabrication & installation</li><li><b>04</b>Payments, reporting & optimization</li></ol>
+      </div>
+      <div className="control"><span>PROPERTY CONTROL</span><div><b>Pricing</b><b>Hours</b><b>Inventory</b><b>Enforcement policy</b></div><p>CedarPass identifies valid sessions. The property retains control of enforcement and towing decisions.</p></div>
+    </section>
 
-          <div className={`yield-moment ${active === 4 ? 'visible' : ''}`}>
-            <span>ILLUSTRATIVE MONTHLY GROSS</span>
-            <strong>$6,480</strong>
-            <p>36 premium spaces × $10 × 18 monthly sessions</p>
-            <small>Before utilization, costs, taxes, and revenue sharing.</small>
-          </div>
+    <section className="final-frame">
+      <Mark /><p>Start with one entrance.</p><button onClick={() => setPilot(true)}>DESIGN THE PILOT <ArrowRight /></button><span>PREMIUM PARKING / FULLY MANAGED</span>
+    </section>
 
-          <div className="film-controls">
-            <button aria-label={playing ? 'Pause film' : 'Play film'} onClick={() => setPlaying(!playing)}>{playing ? <Pause /> : <Play />}</button>
-            <div className="timeline">{scenes.map((scene, index) => <button key={scene.time} aria-label={`Scene ${index + 1}: ${scene.title}`} className={active === index ? 'active' : ''} onClick={() => jump(index)}><i /><span>{scene.time}</span></button>)}</div>
-            <Volume2 />
-          </div>
-        </div>
-
-        <div className="scroll-scenes">
-          {scenes.map((scene, index) => <article key={scene.time} data-scene={index} ref={node => { sceneRefs.current[index] = node }}><span>{scene.time}</span><p>{scene.title}</p></article>)}
-        </div>
-      </section>
-
-      <section className="after-film">
-        <div className="end-card">
-          <span>THE FILM ENDS. THE PLATFORM BEGINS.</span>
-          <h2>One better arrival.<br />Fully managed.</h2>
-        </div>
-        <div className="continuous-line"><i /><span>PROPERTY WALK</span><i /><span>SPACE & PRICING STRATEGY</span><i /><span>SIGN INSTALLATION</span><i /><span>PAYMENTS & REPORTING</span><i /><span>ONGOING OPTIMIZATION</span></div>
-        <div className="executive-note">
-          <span>FOR PROPERTY LEADERS</span>
-          <p>CedarPass adds a premium choice without gates, construction, or changing the promise of free parking. We map the right inventory, install every sign, operate the platform, and show exactly how the spaces perform.</p>
-          <div><strong>New non-rent revenue</strong><strong>Measurable guest demand</strong><strong>Property-controlled policy</strong></div>
-        </div>
-      </section>
-
-      <section className="closing-shot">
-        <div className="closing-rule"><span>CEDARPASS / ARRIVAL 001</span><i /></div>
-        <h2>The best space<br />should create<br /><em>the best return.</em></h2>
-        <button onClick={() => setPilot(true)}>Create a pilot plan <ArrowRight /></button>
-        <footer><Brand /><span>PREMIUM PARKING, FULLY MANAGED.</span><small>CedarPass is a working name and concept. © 2026 CloudKicker.</small></footer>
-      </section>
-    </main>
-
-    {pilot && <div className="modal-backdrop" onMouseDown={event => event.target === event.currentTarget && setPilot(false)}><div className="pilot-dialog" ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="pilot-title"><button className="dialog-close" aria-label="Close" onClick={() => setPilot(false)}><X /></button><span>CEDARPASS PILOT / ACT ONE</span><h2 id="pilot-title">Begin with one entrance.</h2><p>We’ll walk the property, identify the strongest premium zone, model the opportunity, and design the complete arrival experience.</p><div><span>01 / PROPERTY WALK</span><span>02 / OPPORTUNITY MODEL</span><span>03 / LAUNCH PLAN</span></div><button className="dialog-action" onClick={() => setPilot(false)}>Return to the film <ArrowRight /></button></div></div>}
-  </div>
+    {pilot && <div className="modal" onMouseDown={e => e.target === e.currentTarget && setPilot(false)}><div role="dialog" aria-modal="true" aria-labelledby="pilot-heading"><button className="close" aria-label="Close" onClick={() => setPilot(false)}><X /></button><span>CEDARPASS / PILOT 001</span><h2 id="pilot-heading">One entrance.<br />A measurable case.</h2><p>We’ll identify the strongest premium zone, model demand and pricing, and design the complete guest arrival.</p><ol><li>Property walk</li><li>Opportunity model</li><li>Launch plan</li></ol><button className="modal-action" onClick={() => setPilot(false)}>Return to CedarPass <ArrowRight /></button></div></div>}
+  </main>
 }
 
 export default App
