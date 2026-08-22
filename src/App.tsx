@@ -4,17 +4,70 @@ import {
   ArrowRight,
   Check,
   ChevronLeft,
+  Clock3,
+  DollarSign,
   QrCode,
   Tag,
 } from "lucide-react";
 
 const chapters = [
   ["01", "Convert"],
-  ["02", "Scan"],
-  ["03", "Pay"],
+  ["02", "Configure"],
+  ["03", "Experience"],
   ["04", "Own"],
   ["05", "Perform"],
 ];
+
+function PropertySetup() {
+  const [price, setPrice] = useState(12);
+  const [mode, setMode] = useState<"event" | "daily">("event");
+  const [vip, setVip] = useState(true);
+
+  return (
+    <div className="property-setup">
+      <div className="setup-topline">
+        <span>CEDAR ENTRANCE / PREMIUM ZONE</span>
+        <b>LIVE CONFIGURATION</b>
+      </div>
+      <div className="setup-price">
+        <DollarSign />
+        <strong>{price}</strong>
+        <span>PER SESSION</span>
+        <input
+          aria-label="Preview session price"
+          type="range"
+          min="5"
+          max="30"
+          value={price}
+          onChange={(event) => setPrice(Number(event.target.value))}
+        />
+      </div>
+      <div className="setup-row">
+        <Clock3 />
+        <span>
+          <b>WHEN THEY’RE AVAILABLE</b>
+          <small>{mode === "event" ? "EVENT DAYS / 4 PM–11 PM" : "EVERY DAY / 10 AM–10 PM"}</small>
+        </span>
+        <button onClick={() => setMode(mode === "event" ? "daily" : "event")}>CHANGE</button>
+      </div>
+      <div className="setup-row">
+        <Tag />
+        <span>
+          <b>VIP &amp; TEAM ACCESS</b>
+          <small>{vip ? "FREE + DISCOUNT CODES ACTIVE" : "PUBLIC RATE ONLY"}</small>
+        </span>
+        <button onClick={() => setVip(!vip)}>{vip ? "ON" : "OFF"}</button>
+      </div>
+      <div className="setup-ready">
+        <Check />
+        <span>
+          <b>READY TO SELL</b>
+          <small>36 spaces update instantly—no signs to replace.</small>
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function Mark() {
   return (
@@ -338,31 +391,30 @@ function App() {
           ref={(n) => {
             nodes.current[1] = n;
           }}
-          className="chapter choose"
+          className="chapter configure"
         >
           <div className="chapter-index">
             <b>02</b>
-            <span>SCAN</span>
+            <span>CONFIGURE</span>
           </div>
-          <div className="distance">
-            <span>GENERAL PARKING</span>
-            <strong>1,240'</strong>
-            <i />
-            <span>CEDARSPACES</span>
-            <strong>300'</strong>
-          </div>
-          <div className="choice-copy">
-            <p>The sign makes the offer at exactly the right moment.</p>
+          <div className="configure-copy">
+            <span>YOUR INVENTORY. YOUR RULES.</span>
             <h2>
-              See it.
+              Set the
               <br />
-              Scan it.
+              offer.
             </h2>
+            <p>
+              You decide what each space costs, when it is available, and who
+              gets preferred access. Change any of it instantly from one place.
+            </p>
           </div>
-          <div className="space-tag">
-            <span>SPACE</span>
-            <b>A12</b>
-            <small>SCAN TO PARK</small>
+          <PropertySetup />
+          <div className="configure-promise">
+            <span>EVENT PRICING</span>
+            <span>TIME WINDOWS</span>
+            <span>VIP CODES</span>
+            <span>STAFF ACCESS</span>
           </div>
         </article>
 
@@ -376,29 +428,23 @@ function App() {
         >
           <div className="chapter-index">
             <b>03</b>
-            <span>PAY</span>
+            <span>EXPERIENCE</span>
           </div>
           <div className="activation-copy">
-            <p>
-              NO DOWNLOAD
-              <br />
-              NO ACCOUNT
-              <br />
-              APPLE PAY READY
-            </p>
+            <p>NOW SEE IT AS YOUR GUEST.</p>
             <h2>
-              Tap.
+              The sign
               <br />
-              Done.
+              sells it.
             </h2>
             <span>
-              Enter the plate, choose the time, and pay. The whole transaction
-              takes less time than finding another space.
+              They pull into a better space, scan the sign, enter their plate,
+              and pay with Apple Pay. No app. No account. No hesitation.
             </span>
             <div className="access-code">
-              <Tag />
-              <b>VIP &amp; STAFF CODES</b>
-              <small>Free or discounted access, controlled by your team.</small>
+              <QrCode />
+              <b>TRY THE REAL FLOW</b>
+              <small>Tap through the phone exactly as a guest would.</small>
             </div>
           </div>
           <Phone />

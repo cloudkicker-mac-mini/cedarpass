@@ -14,6 +14,12 @@ test('CedarSpaces arrival journey and booking demo work', async ({ page }, testI
   await expect(page.getByRole('heading', { name: /choose the spaces/i })).toBeVisible()
   await expect(page.getByText('TEMPORARY', { exact: true })).toBeVisible()
   await expect(page.getByText('PERMANENT', { exact: true })).toBeVisible()
+  await page.locator('#chapter-1').scrollIntoViewIfNeeded()
+  await expect(page.getByRole('heading', { name: /set the offer/i })).toBeVisible()
+  await expect(page.getByText(/event days/i)).toBeVisible()
+  await expect(page.getByText(/free \+ discount codes active/i)).toBeVisible()
+  await page.getByRole('slider', { name: 'Preview session price' }).fill('18')
+  await expect(page.locator('.setup-price strong')).toHaveText('18')
   await page.locator('#chapter-2').scrollIntoViewIfNeeded()
   await expect(page.getByRole('button', { name: /claim this space/i })).toBeVisible()
   await page.getByRole('button', { name: /claim this space/i }).click()
@@ -44,7 +50,7 @@ for (const viewport of [
   { name: 'tablet', width: 768, height: 1024 },
   { name: 'desktop', width: 1440, height: 900 },
 ]) {
-  test(`hero content stays inside the viewport at ${viewport.name}`, async ({ page }) => {
+  test(`page content stays inside the viewport at ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height })
     await page.goto('/cedarpass/')
 
