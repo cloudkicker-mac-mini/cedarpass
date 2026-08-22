@@ -9,6 +9,11 @@ test('CedarPass arrival journey and booking demo work', async ({ page }, testInf
   await expect(page.locator('#opening').getByText('THE BEST', { exact: true })).toBeVisible()
   await expect(page.locator('#opening').getByText('SPACES', { exact: true })).toBeVisible()
   await expect(page.locator('#opening').getByText('ARE ALREADY BUILT.', { exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: /how it works/i }).first()).toHaveAttribute('href', '#chapter-0')
+  await page.locator('#chapter-0').scrollIntoViewIfNeeded()
+  await expect(page.getByRole('heading', { name: /choose the spaces/i })).toBeVisible()
+  await expect(page.getByText('TEMPORARY', { exact: true })).toBeVisible()
+  await expect(page.getByText('PERMANENT', { exact: true })).toBeVisible()
   await page.locator('#chapter-2').scrollIntoViewIfNeeded()
   await expect(page.getByRole('button', { name: /claim this space/i })).toBeVisible()
   await page.getByRole('button', { name: /claim this space/i }).click()
@@ -26,10 +31,7 @@ test('CedarPass arrival journey and booking demo work', async ({ page }, testInf
   await expect(page.getByText('$180,000')).toBeVisible()
 
   await page.locator('.final-frame').scrollIntoViewIfNeeded()
-  await page.getByRole('button', { name: /design the pilot/i }).click()
-  await expect(page.getByRole('dialog')).toBeVisible()
-  await page.getByRole('button', { name: 'Close' }).click()
-  await expect(page.getByRole('dialog')).toBeHidden()
+  await expect(page.locator('.final-frame').getByRole('link', { name: /how it works/i })).toHaveAttribute('href', '#chapter-0')
 
   await page.screenshot({ path: `screenshots/cedarpass-${testInfo.project.name}.png`, fullPage: true })
   expect(errors).toEqual([])
