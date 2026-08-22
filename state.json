@@ -1,8 +1,8 @@
 {
-  "task": "Replace CedarPass 300 Feet hero with a clearer premium-inventory campaign",
+  "task": "Recompose CedarPass hero for mobile",
   "stage": "complete",
-  "nextStep": "Await Anthony's review of the new hero",
+  "nextStep": "Await Anthony's review of the corrected mobile hero",
   "blockers": [],
   "artifacts": ["src/App.tsx", "src/styles.css", "tests/site.spec.ts"],
-  "timestamp": "2026-08-22T01:39:00Z"
+  "timestamp": "2026-08-22T01:58:00Z"
 }
