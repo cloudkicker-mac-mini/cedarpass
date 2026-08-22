@@ -1,8 +1,8 @@
 {
-  "task": "Center CedarPass conversion path on How It Works",
-  "stage": "complete",
-  "nextStep": "Await Anthony's review of the live How It Works journey",
+  "task": "Fix CedarParking desktop hero composition and rename product",
+  "stage": "deploying",
+  "nextStep": "Push commit and verify CedarParking on GitHub Pages",
   "blockers": [],
   "artifacts": ["src/App.tsx", "src/styles.css", "tests/site.spec.ts"],
-  "timestamp": "2026-08-22T02:36:00Z"
+  "timestamp": "2026-08-22T02:27:00Z"
 }

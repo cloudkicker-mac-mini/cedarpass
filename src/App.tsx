@@ -18,12 +18,12 @@ const chapters = [
 
 function Mark() {
   return (
-    <a className="mark" href="#opening" aria-label="CedarPass home">
+    <a className="mark" href="#opening" aria-label="CedarParking home">
       <i>CP</i>
       <span>
         CEDAR
         <br />
-        PASS
+        PARKING
       </span>
     </a>
   );
@@ -40,7 +40,7 @@ function Phone() {
         </div>
         {step === 0 && (
           <div className="screen start">
-            <div className="phone-brand">CEDAR / PASS</div>
+            <div className="phone-brand">CEDAR / PARKING</div>
             <div className="space-number">A12</div>
             <div className="space-meta">
               <span>CEDAR ENTRANCE</span>
@@ -255,29 +255,25 @@ function App() {
       <section className="opening" id="opening">
         <img
           src={`${import.meta.env.BASE_URL}assets/cedarpass-arrival-hero.webp`}
-          alt="A guest arriving at a premium CedarPass parking space"
+          alt="A guest arriving at a premium CedarParking space"
         />
         <div className="opening-title">
-          <strong>THE BEST</strong>
-          <em>SPACES</em>
-          <b>ARE ALREADY BUILT.</b>
+          <strong>
+            The best spaces
+            <br />
+            are already built.
+          </strong>
+          <span>CEDARPARKING / PREMIUM ARRIVAL</span>
         </div>
         <div className="opening-caption">
           <p>
-            CedarPass turns the spaces closest to your entrance into a fully
+            CedarParking turns the spaces closest to your entrance into a fully
             managed premium experience.
           </p>
-          <span>NEW REVENUE / BETTER ARRIVAL / ZERO APP DOWNLOADS</span>
+          <a href="#chapter-0" className="opening-cta">
+            See how it works <ArrowDown />
+          </a>
         </div>
-        <div className="opening-space">
-          <span>PREMIUM INVENTORY</span>
-          <b>A12</b>
-          <small>READY TO ACTIVATE</small>
-        </div>
-        <a href="#chapter-0" className="start-film">
-          <span>HOW IT WORKS</span>
-          <ArrowDown />
-        </a>
       </section>
 
       <section className="journey">
@@ -301,12 +297,12 @@ function App() {
               the spaces.
             </h2>
             <p>
-              We turn each one into premium inventory with a CedarPass
+              We turn each one into premium inventory with a CedarParking
               sign—temporary for an event, or permanently installed for everyday
               use.
             </p>
           </div>
-          <div className="sign-stage" aria-label="CedarPass parking sign">
+          <div className="sign-stage" aria-label="CedarParking parking sign">
             <div className="sign-shadow" />
             <div className="parking-sign">
               <span>THIS SPACE IS AVAILABLE</span>
@@ -317,7 +313,7 @@ function App() {
                 PARK HERE
               </b>
               <QrCode />
-              <small>CEDAR / PASS</small>
+              <small>CEDAR / PARKING</small>
             </div>
             <div className="sign-options">
               <span>
@@ -352,7 +348,7 @@ function App() {
             <span>GENERAL PARKING</span>
             <strong>1,240'</strong>
             <i />
-            <span>CEDARPASS</span>
+            <span>CEDARPARKING</span>
             <strong>300'</strong>
           </div>
           <div className="choice-copy">
@@ -488,7 +484,7 @@ function App() {
           <p>
             We walk the property, select the inventory, install every sign, run
             the payment experience, and report performance. Your team chooses
-            policy. CedarPass runs the platform.
+            policy. CedarParking runs the platform.
           </p>
           <ol>
             <li>
@@ -514,7 +510,7 @@ function App() {
             <b>Enforcement policy</b>
           </div>
           <p>
-            CedarPass identifies valid sessions. The property retains control of
+            CedarParking identifies valid sessions. The property retains control of
             enforcement and towing decisions.
           </p>
         </div>

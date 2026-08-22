@@ -1768,7 +1768,99 @@ p {
   }
 }
 
-/* The CedarPass protocol: one conversion path from physical space to paid session. */
+/* Unified campaign lockup: one headline, one explanation, one action. */
+.opening-title {
+  inset: auto auto 27vh 6vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-items: initial;
+  max-width: min(830px, 68vw);
+  line-height: 0.86;
+}
+.opening-title strong {
+  position: static;
+  font-size: clamp(4.8rem, 8.4vw, 9.4rem);
+  font-weight: 300;
+  letter-spacing: -0.052em;
+  color: #f2efe7;
+}
+.opening-title > span {
+  order: -1;
+  margin: 0 0 22px 5px;
+  font: 500 0.55rem/1 Barlow Condensed;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+}
+.opening-caption {
+  left: 6vw;
+  bottom: 6vh;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  max-width: 700px;
+  padding-top: 20px;
+  border-top: 1px solid #b5924b80;
+}
+.opening-caption p {
+  max-width: 430px;
+  font: 300 clamp(1.2rem, 1.65vw, 1.7rem)/1.12 Barlow Condensed;
+}
+.opening-cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 19px;
+  background: var(--gold);
+  color: #090909;
+  text-decoration: none;
+  text-transform: uppercase;
+  font: 600 0.55rem/1 Barlow Condensed;
+  letter-spacing: 0.14em;
+}
+.opening-cta svg {
+  width: 14px;
+}
+.opening-space,
+.start-film {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .opening-title {
+    inset: 0;
+    max-width: none;
+    padding: 6vh 6vw 0;
+    line-height: 0.84;
+  }
+  .opening-title strong {
+    font-size: clamp(3.75rem, 18vw, 5.3rem);
+    letter-spacing: -0.045em;
+  }
+  .opening-title > span {
+    margin: 0 0 14px 2px;
+    font-size: 0.43rem;
+    letter-spacing: 0.2em;
+  }
+  .opening-caption {
+    left: 6vw;
+    right: 6vw;
+    bottom: 8vh;
+    display: grid;
+    gap: 18px;
+    max-width: none;
+  }
+  .opening-caption p {
+    max-width: 340px;
+    font-size: 1.55rem;
+  }
+  .opening-cta {
+    width: max-content;
+  }
+}
+
+/* The CedarParking protocol: one conversion path from physical space to paid session. */
 .spine-cta {
   width: 76px;
   height: 76px;
