@@ -16,6 +16,14 @@ test('CedarPass arrival journey and booking demo work', async ({ page }, testInf
   await page.getByRole('button', { name: /pay \$10.00/i }).click()
   await expect(page.getByRole('heading', { name: /walk in/i })).toBeVisible()
 
+  await page.locator('#chapter-4').scrollIntoViewIfNeeded()
+  await expect(page.getByText('$6,480')).toBeVisible()
+  await page.getByRole('slider', { name: 'Premium spaces' }).fill('50')
+  await page.getByRole('slider', { name: 'Price per session' }).fill('15')
+  await page.getByRole('slider', { name: 'Monthly bookings per space' }).fill('20')
+  await expect(page.getByText('$15,000')).toBeVisible()
+  await expect(page.getByText('$180,000')).toBeVisible()
+
   await page.locator('.final-frame').scrollIntoViewIfNeeded()
   await page.getByRole('button', { name: /design the pilot/i }).click()
   await expect(page.getByRole('dialog')).toBeVisible()

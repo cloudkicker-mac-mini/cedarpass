@@ -45,6 +45,42 @@ function Phone() {
   </div>
 }
 
+function RevenueModel() {
+  const [spaces, setSpaces] = useState(36)
+  const [price, setPrice] = useState(10)
+  const [sessions, setSessions] = useState(18)
+  const monthly = spaces * price * sessions
+  const annual = monthly * 12
+  const money = (value: number) => new Intl.NumberFormat('en-US', {
+    style: 'currency', currency: 'USD', maximumFractionDigits: 0,
+  }).format(value)
+
+  return <div className="revenue-model">
+    <div className="model-output">
+      <span>PROJECTED GROSS / MONTH</span>
+      <strong aria-live="polite">{money(monthly)}</strong>
+      <div><b>{money(annual)}</b><small>ILLUSTRATIVE ANNUAL GROSS</small></div>
+    </div>
+    <div className="model-controls">
+      <label>
+        <span><b>PREMIUM SPACES</b><output>{spaces}</output></span>
+        <input aria-label="Premium spaces" type="range" min="5" max="100" step="1" value={spaces} onChange={e => setSpaces(Number(e.target.value))} />
+        <i><small>5</small><small>100</small></i>
+      </label>
+      <label>
+        <span><b>PRICE PER SESSION</b><output>${price}</output></span>
+        <input aria-label="Price per session" type="range" min="5" max="30" step="1" value={price} onChange={e => setPrice(Number(e.target.value))} />
+        <i><small>$5</small><small>$30</small></i>
+      </label>
+      <label>
+        <span><b>MONTHLY BOOKINGS / SPACE</b><output>{sessions}</output></span>
+        <input aria-label="Monthly bookings per space" type="range" min="4" max="60" step="1" value={sessions} onChange={e => setSessions(Number(e.target.value))} />
+        <i><small>4</small><small>60</small></i>
+      </label>
+    </div>
+  </div>
+}
+
 function App() {
   const [active, setActive] = useState(0)
   const [pilot, setPilot] = useState(false)
@@ -110,10 +146,10 @@ function App() {
 
       <article id="chapter-4" data-chapter="4" ref={n => { nodes.current[4] = n }} className="chapter perform">
         <div className="chapter-index"><b>01:03</b><span>PERFORM</span></div>
-        <div className="performance-line"><span>PAVEMENT</span><i /><span>HOSPITALITY</span><i /><span>REVENUE</span></div>
-        <div className="number"><strong>$6,480</strong><span>ILLUSTRATIVE<br />MONTHLY GROSS</span></div>
-        <p>36 premium spaces × $10 × 18 monthly sessions</p>
-        <small>Illustrative only. Before utilization, costs, taxes, and revenue sharing.</small>
+        <div className="performance-line"><span>EXISTING PAVEMENT</span><i /><span>NEW YIELD</span></div>
+        <div className="model-heading"><span>INVESTMENT MODEL / LIVE</span><h2>Run your<br />own numbers.</h2><p>Model a premium zone in seconds. Adjust the inventory, session price, and booking pace.</p></div>
+        <RevenueModel />
+        <small className="model-disclaimer">Illustrative only. Before utilization, costs, taxes, and revenue sharing.</small>
       </article>
     </section>
 
